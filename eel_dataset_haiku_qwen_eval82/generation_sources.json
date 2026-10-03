@@ -1,0 +1,40 @@
+{
+ "sources": [
+  {
+   "sample": 0,
+   "name": "haiku",
+   "model": "claude-haiku-4-5-20251001"
+  },
+  {
+   "sample": 1,
+   "name": "qwen_r1",
+   "model": "Qwen2.5-Coder-32B-Instruct"
+  },
+  {
+   "sample": 2,
+   "name": "qwen_r2",
+   "model": "Qwen2.5-Coder-32B-Instruct"
+  },
+  {
+   "sample": 3,
+   "name": "qwen_r3",
+   "model": "Qwen2.5-Coder-32B-Instruct"
+  }
+ ],
+ "selection": "all 76 test instances eligible after Haiku + Qwen rounds 1-2, plus 6 of the 15 newly eligible after Qwen round 3 chosen by random.Random(20261002).sample; selected before any model was trained or evaluated; dropped instances have all their candidate hunks removed",
+ "selection_seed": 20261002,
+ "test_hunks_by_sample_and_tier": {
+  "sample0_tier1": 87,
+  "sample0_tier2": 147,
+  "sample0_tier3": 132,
+  "sample1_tier1": 60,
+  "sample1_tier2": 105,
+  "sample1_tier3": 127,
+  "sample2_tier1": 17,
+  "sample2_tier2": 40,
+  "sample2_tier3": 49,
+  "sample3_tier1": 21,
+  "sample3_tier2": 32,
+  "sample3_tier3": 37
+ }
+}
