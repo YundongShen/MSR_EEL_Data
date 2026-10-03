@@ -1,0 +1,38 @@
+{
+ "sources": [
+  {
+   "sample": 0,
+   "name": "haiku",
+   "model": "claude-haiku-4-5-20251001"
+  },
+  {
+   "sample": 1,
+   "name": "qwen_r1",
+   "model": "Qwen2.5-Coder-32B-Instruct"
+  },
+  {
+   "sample": 2,
+   "name": "qwen_r2",
+   "model": "Qwen2.5-Coder-32B-Instruct"
+  },
+  {
+   "sample": 3,
+   "name": "qwen_r3",
+   "model": "Qwen2.5-Coder-32B-Instruct"
+  }
+ ],
+ "test_hunks_by_sample_and_tier": {
+  "sample0_tier1": 88,
+  "sample0_tier2": 154,
+  "sample0_tier3": 77,
+  "sample1_tier1": 62,
+  "sample1_tier2": 114,
+  "sample1_tier3": 83,
+  "sample2_tier1": 18,
+  "sample2_tier2": 45,
+  "sample2_tier3": 22,
+  "sample3_tier1": 22,
+  "sample3_tier2": 43,
+  "sample3_tier3": 15
+ }
+}
