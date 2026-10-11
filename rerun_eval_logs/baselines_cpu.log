@@ -1,0 +1,63 @@
+17:57:49 [INFO] Test instances: 229
+17:57:49 [INFO] Tier-3 lookup: 743 instances
+17:57:49 [INFO] === BM25 ===
+17:57:49 [INFO]   nDCG@k_gold  mean=0.6047  n=82
+17:57:49 [INFO]   T2-Recall    mean=0.6239  n=47
+17:57:49 [INFO]   Perfect-Sep  mean=0.2195  n=82
+17:57:49 [INFO] Results saved → logs/baseline_bm25.json
+17:57:58 [INFO] Device: cpu
+17:57:58 [INFO] Loading tokenizer and model: microsoft/codebert-base
+17:58:06 [INFO] Test instances: 229
+17:58:06 [INFO] Tier-3 lookup: 743 instances
+18:00:09 [INFO] === microsoft/codebert-base ===
+18:00:09 [INFO]   nDCG@k_gold  mean=0.6209  n=82
+18:00:09 [INFO]   T2-Recall    mean=0.6862  n=47
+18:00:09 [INFO]   Perfect-Sep  mean=0.2805  n=82
+18:00:09 [INFO] Results saved → logs/baseline_codebert.json
+18:00:23 [INFO] Device: cpu
+18:00:23 [INFO] Loading tokenizer and model: microsoft/graphcodebert-base
+Some weights of RobertaModel were not initialized from the model checkpoint at microsoft/graphcodebert-base and are newly initialized: ['roberta.pooler.dense.bias', 'roberta.pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+18:00:31 [INFO] Test instances: 229
+18:00:31 [INFO] Tier-3 lookup: 743 instances
+18:02:27 [INFO] === microsoft/graphcodebert-base ===
+18:02:27 [INFO]   nDCG@k_gold  mean=0.6482  n=82
+18:02:27 [INFO]   T2-Recall    mean=0.7042  n=47
+18:02:27 [INFO]   Perfect-Sep  mean=0.3049  n=82
+18:02:27 [INFO] Results saved → logs/baseline_graphcodebert.json
+18:02:38 [INFO] Mode: codet5  Model: Salesforce/codet5p-110m-embedding
+18:02:38 [INFO] Loading bi-encoder: Salesforce/codet5p-110m-embedding
+A new version of the following files was downloaded from https://huggingface.co/Salesforce/codet5p-110m-embedding:
+- configuration_codet5p_embedding.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+A new version of the following files was downloaded from https://huggingface.co/Salesforce/codet5p-110m-embedding:
+- modeling_codet5p_embedding.py
+. Make sure to double-check they do not contain any added malicious code. To avoid downloading new versions of the code file, you can pin a revision.
+18:02:48 [INFO] Test instances: 229
+18:02:48 [INFO] Tier-3 lookup: 743 instances
+18:05:19 [INFO] === Salesforce/codet5p-110m-embedding ===
+18:05:19 [INFO]   nDCG@k_gold  mean=0.6001  n=82
+18:05:19 [INFO]   T2-Recall    mean=0.6224  n=47
+18:05:19 [INFO]   Perfect-Sep  mean=0.2317  n=82
+18:05:19 [INFO] Results saved → logs/baseline_codet5.json
+18:05:29 [INFO] Mode: coderetriever  Model: microsoft/graphcodebert-base
+18:05:29 [INFO] Loading bi-encoder: microsoft/graphcodebert-base
+Some weights of RobertaModel were not initialized from the model checkpoint at microsoft/graphcodebert-base and are newly initialized: ['roberta.pooler.dense.bias', 'roberta.pooler.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+18:05:33 [INFO] Test instances: 229
+18:05:33 [INFO] Tier-3 lookup: 743 instances
+18:07:35 [INFO] === microsoft/graphcodebert-base ===
+18:07:35 [INFO]   nDCG@k_gold  mean=0.6631  n=82
+18:07:35 [INFO]   T2-Recall    mean=0.6677  n=47
+18:07:35 [INFO]   Perfect-Sep  mean=0.2683  n=82
+18:07:35 [INFO] Results saved → logs/baseline_pooler_graphcodebert.json
+18:07:45 [INFO] Mode: cross_encoder  Model: cross-encoder/ms-marco-MiniLM-L-6-v2
+18:07:45 [INFO] Loading cross-encoder: cross-encoder/ms-marco-MiniLM-L-6-v2
+18:07:51 [INFO] Test instances: 229
+18:07:51 [INFO] Tier-3 lookup: 743 instances
+18:08:15 [INFO] === cross-encoder/ms-marco-MiniLM-L-6-v2 ===
+18:08:15 [INFO]   nDCG@k_gold  mean=0.6040  n=82
+18:08:15 [INFO]   T2-Recall    mean=0.6761  n=47
+18:08:15 [INFO]   Perfect-Sep  mean=0.2195  n=82
+18:08:15 [INFO] Results saved → logs/baseline_cross_encoder.json
+ALL_DONE

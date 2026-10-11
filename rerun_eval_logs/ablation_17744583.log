@@ -1,0 +1,81 @@
+NVIDIA A100-SXM4-80GB
+===== req_only  ckpt=exp2_req_only  weights=1.0/0.0/0.0 =====
+17:48:19 [INFO] Device: cuda
+17:48:19 [INFO] use_projection: True
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+17:48:25 [INFO] Loaded encoder from checkpoints/exp2_req_only/best.pt
+17:48:25 [INFO] === Experiment 2: Retrieval ===
+17:48:27 [INFO] Test instances: 229
+17:48:27 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
+17:48:27 [INFO] Building repo-level distractor pool (test split only) …
+17:48:27 [INFO] Repo pool: 11 repos, 862 total hunks
+17:51:49 [INFO] T1-Recall(K=gold)  mean=0.5939  std=0.3865  n=44  (top-K = |T1∪T2|)
+17:51:49 [INFO] nDCG@k_gold  mean=0.6928  std=0.3772  n=82  (k = |T1∪T2| per instance)
+17:51:49 [INFO] T2-Recall(K=gold)  mean=0.7954  std=0.3182  n=47  (top-K = |T1∪T2|)
+17:51:49 [INFO] Perfect-Sep  mean=0.8659  n=82  (all T3 ranked after all gold)
+===== test_only  ckpt=exp2_test_only  weights=0.0/1.0/0.0 =====
+17:52:00 [INFO] Device: cuda
+17:52:00 [INFO] use_projection: True
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+17:52:04 [INFO] Loaded encoder from checkpoints/exp2_test_only/best.pt
+17:52:04 [INFO] === Experiment 2: Retrieval ===
+17:52:05 [INFO] Test instances: 229
+17:52:05 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
+17:52:05 [INFO] Building repo-level distractor pool (test split only) …
+17:52:05 [INFO] Repo pool: 11 repos, 862 total hunks
+17:55:28 [INFO] T1-Recall(K=gold)  mean=0.3810  std=0.3917  n=44  (top-K = |T1∪T2|)
+17:55:28 [INFO] nDCG@k_gold  mean=0.3132  std=0.3831  n=82  (k = |T1∪T2| per instance)
+17:55:28 [INFO] T2-Recall(K=gold)  mean=0.2891  std=0.3863  n=47  (top-K = |T1∪T2|)
+17:55:28 [INFO] Perfect-Sep  mean=0.5854  n=82  (all T3 ranked after all gold)
+===== orig_only  ckpt=m2_abl_no_req  weights=0.0/0.0/1.0 =====
+17:55:37 [INFO] Device: cuda
+17:55:37 [INFO] use_projection: True
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+17:55:41 [INFO] Loaded encoder from checkpoints/m2_abl_no_req/best.pt
+17:55:41 [INFO] === Experiment 2: Retrieval ===
+17:55:43 [INFO] Test instances: 229
+17:55:43 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
+17:55:43 [INFO] Building repo-level distractor pool (test split only) …
+17:55:43 [INFO] Repo pool: 11 repos, 862 total hunks
+17:59:05 [INFO] T1-Recall(K=gold)  mean=0.7271  std=0.3145  n=44  (top-K = |T1∪T2|)
+17:59:05 [INFO] nDCG@k_gold  mean=0.7893  std=0.2974  n=82  (k = |T1∪T2| per instance)
+17:59:05 [INFO] T2-Recall(K=gold)  mean=0.7545  std=0.3321  n=47  (top-K = |T1∪T2|)
+17:59:05 [INFO] Perfect-Sep  mean=0.8293  n=82  (all T3 ranked after all gold)
+===== wo_orig  ckpt=m2_abl_no_orig  weights=1.0/0.5/0.0 =====
+17:59:14 [INFO] Device: cuda
+17:59:14 [INFO] use_projection: True
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+17:59:18 [INFO] Loaded encoder from checkpoints/m2_abl_no_orig/best.pt
+17:59:18 [INFO] === Experiment 2: Retrieval ===
+17:59:20 [INFO] Test instances: 229
+17:59:20 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
+17:59:20 [INFO] Building repo-level distractor pool (test split only) …
+17:59:20 [INFO] Repo pool: 11 repos, 862 total hunks
+18:02:42 [INFO] T1-Recall(K=gold)  mean=0.6071  std=0.3695  n=44  (top-K = |T1∪T2|)
+18:02:42 [INFO] nDCG@k_gold  mean=0.6681  std=0.3809  n=82  (k = |T1∪T2| per instance)
+18:02:42 [INFO] T2-Recall(K=gold)  mean=0.7210  std=0.3656  n=47  (top-K = |T1∪T2|)
+18:02:42 [INFO] Perfect-Sep  mean=0.9268  n=82  (all T3 ranked after all gold)
+===== wo_test  ckpt=m2_abl_no_test  weights=1.0/0.0/0.5 =====
+18:02:51 [INFO] Device: cuda
+18:02:51 [INFO] use_projection: True
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+18:02:55 [INFO] Loaded encoder from checkpoints/m2_abl_no_test/best.pt
+18:02:55 [INFO] === Experiment 2: Retrieval ===
+18:02:56 [INFO] Test instances: 229
+18:02:56 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
+18:02:56 [INFO] Building repo-level distractor pool (test split only) …
+18:02:56 [INFO] Repo pool: 11 repos, 862 total hunks
+18:06:19 [INFO] T1-Recall(K=gold)  mean=0.7340  std=0.3197  n=44  (top-K = |T1∪T2|)
+18:06:19 [INFO] nDCG@k_gold  mean=0.8063  std=0.2823  n=82  (k = |T1∪T2| per instance)
+18:06:19 [INFO] T2-Recall(K=gold)  mean=0.8297  std=0.2666  n=47  (top-K = |T1∪T2|)
+18:06:19 [INFO] Perfect-Sep  mean=0.9512  n=82  (all T3 ranked after all gold)
