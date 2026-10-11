@@ -1,0 +1,28 @@
+UniXcoder 语义相似度表的溯源记录(数据:仓库 MSR_EEL_SUBMIT 提交 8ee1c02,生成日期 2026-10-11)
+
+【1 输入数据,与仓库该提交里的文件逐字节相同,哈希见 inputs.sha256】
+  llm_t12_hunks.jsonl      T1/T2 hunk(9223 个,即表中的 retained hunk)
+  tier3_hunks.jsonl        T3 hunk(1257 个)
+  gen.jsonl.gz             即仓库 haiku_generations.jsonl.gz,提供每个 issue 的参考补丁 meta.gold_patch
+  merged_generations.py    仓库代码,提供 diff_hunks(),用来把参考补丁拆成参考 hunk
+
+【2 取数与配对逻辑:prep.py(输出 prep.log、pairs.json)】
+  比较文本 = hunk 里实际增删的行(去掉 +/- 标记,不含未修改上下文和 @@ 头)
+  A 组:每个 retained hunk 配其替换的参考 hunk —— 同文件、起始行相差 <20,按相差行数从小到大在同一 issue 内做一对一贪心匹配;
+       匹配不上的 622 个取同文件最近的参考 hunk(8601 个唯一匹配 + 622 个最近匹配 = 9223)
+  B 组:每个 T3 hunk 配同一 issue 里同文件最近的参考 hunk(1256 个);
+       另有 1 个(astropy-7008 的新建文件 _registry.py)该文件不在参考补丁里,取同一 issue 里文件路径最接近的参考 hunk(utils.py)
+  随机对照:每个 retained hunk 配同仓库、另一个 issue 里随机一个参考 hunk(随机种子 0)
+
+【3 向量:embed_ux.py + run_embed_ux.slurm(SLURM 作业 17745515,日志 ux_17745515.out/.err,输出 emb_ux.npy)】
+  模型 microsoft/unixcoder-base(本机 HF 缓存,encoder-only 模式:[CLS] <encoder-only> [SEP] + tokens + [SEP],
+  最长 512,对有效 token 取平均),共 29145 段不重复文本
+
+【4 统计:analyse_ux.py(输出 result_unixcoder.json 与 table.txt)】
+  普通余弦相似度,给出 n、均值、中位数、四分位;另有只取新增行的对照和 T1/T2、sample 细分
+
+【5 复现顺序】
+  python prep.py                 -> pairs.json
+  sbatch run_embed_ux.slurm      -> emb_ux.npy(GPU,约 1 分钟)
+  python analyse_ux.py           -> result_unixcoder.json, table.txt
+  复现结果已核对:table.txt 与报告中的表完全一致(A 0.770/0.857, B 0.357/0.325, 随机 0.144/0.134)

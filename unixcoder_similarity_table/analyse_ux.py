@@ -1,0 +1,23 @@
+"""Table: UniXcoder cosine similarity of changed lines (no unchanged context).
+A = retained (T1/T2) hunk vs its matched reference hunk; B = T3 hunk vs closest reference hunk of the same issue;
+control = retained hunk vs a random reference hunk of another issue in the same repo.  Inputs: pairs.json, emb_ux.npy."""
+import json,numpy as np
+d=json.load(open('pairs.json'));P=d['pairs'];E=np.load('emb_ux.npy')
+g=np.array([p['group'] for p in P]);tier=np.array([p['tier'] for p in P]);smp=np.array([p['sample'] for p in P])
+def cos(A,B): return (A*B).sum(1)/(np.linalg.norm(A,axis=1)*np.linalg.norm(B,axis=1)+1e-9)
+def sims(view): return cos(E[[p[view][0] for p in P]],E[[p[view][1] for p in P]])
+def desc(x): return dict(n=int(len(x)),mean=round(float(x.mean()),4),median=round(float(np.median(x)),4),p25=round(float(np.percentile(x,25)),4),p75=round(float(np.percentile(x,75)),4))
+s=sims('v1');r=sims('c1');s2=sims('v2');r2=sims('c2')
+A=s[g=='A'];B=s[g=='B']
+res=dict(
+ changed_lines=dict(A=desc(A),B=desc(B),random_control=desc(r[g=='A']),diff_A_minus_B=dict(mean=round(float(A.mean()-B.mean()),4),median=round(float(np.median(A)-np.median(B)),4)),
+   A_T1=desc(s[(g=='A')&(tier==1)]),A_T2=desc(s[(g=='A')&(tier==2)]),A_sample0=desc(s[(g=='A')&(smp==0)]),A_sample1=desc(s[(g=='A')&(smp==1)])),
+ added_lines_only=dict(A=desc(s2[g=='A']),B=desc(s2[g=='B']),random_control=desc(r2[g=='A'])),
+ counts=d['counts'])
+json.dump(res,open('result_unixcoder.json','w'),indent=1)
+c=res['changed_lines']
+print('n\t均值\t中位数\t四分位')
+print(f"A:LLM retained hunk 对匹配参考 hunk\t{c['A']['n']}\t{c['A']['mean']:.3f}\t{c['A']['median']:.3f}\t{c['A']['p25']:.3f} 到 {c['A']['p75']:.3f}")
+print(f"B:T3 hunk 对同文件(或路径最近)参考 hunk\t{c['B']['n']}\t{c['B']['mean']:.3f}\t{c['B']['median']:.3f}\t{c['B']['p25']:.3f} 到 {c['B']['p75']:.3f}")
+print(f"差(A−B)\t\t{c['diff_A_minus_B']['mean']:+.3f}\t{c['diff_A_minus_B']['median']:+.3f}")
+print(f"参考:随机无关的参考 hunk\t{c['random_control']['n']}\t{c['random_control']['mean']:.3f}\t{c['random_control']['median']:.3f}")
