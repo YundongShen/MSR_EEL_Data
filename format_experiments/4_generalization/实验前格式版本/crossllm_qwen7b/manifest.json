@@ -1,0 +1,30 @@
+{
+  "name": "crossllm_qwen7b",
+  "version": "实验前格式版本",
+  "source_version": "采样后格式版本",
+  "rule": {
+    "retained": "one generated hunk per reference hunk (closest, same file, < 20 lines)",
+    "tier3": "at most 2 per issue, random.Random('42-<instance_id>')"
+  },
+  "sampled_version": {
+    "eval_issues": 144,
+    "t1_issues": 62,
+    "t2_issues": 88,
+    "T1": 430,
+    "T2": 622,
+    "T3": 997,
+    "retained_per_issue": 7.31,
+    "t3_per_issue": 6.92
+  },
+  "this_version": {
+    "eval_issues": 144,
+    "t1_issues": 62,
+    "t2_issues": 88,
+    "T1": 125,
+    "T2": 153,
+    "T3": 264,
+    "retained_per_issue": 1.93,
+    "t3_per_issue": 1.83
+  },
+  "function_name_rate_of_retained_git_format": 0.898
+}

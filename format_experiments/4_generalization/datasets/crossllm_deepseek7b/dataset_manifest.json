@@ -1,0 +1,156 @@
+{
+  "protocol": "T1/T2 = LLM-generated hunks matched to reference-patch hunks (same file, start line within 20 lines of the gold hunk), T1 if the file is statically linked to a fail-to-pass test, else T2; T3 = LLM-generated hunks starting >= 20 lines from every gold hunk in the same file (or in another file)",
+  "generator": "deepseek-coder-7b-instruct-v1.5, temperature 0.7, max_tokens 1024",
+  "total": {
+    "instances": 229,
+    "train": 0,
+    "val": 0,
+    "test": 229,
+    "gold_hunks": 862,
+    "T1": 989,
+    "T2": 1763,
+    "T3_hunks": 1302,
+    "T3_instances": 170
+  },
+  "per_repo": {
+    "flask": {
+      "instances": 1,
+      "train": 0,
+      "val": 0,
+      "test": 1,
+      "gold_hunks": 4,
+      "T1": 0,
+      "T2": 8,
+      "T3_hunks": 5,
+      "T3_instances": 1
+    },
+    "requests": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 9,
+      "T1": 0,
+      "T2": 75,
+      "T3_hunks": 21,
+      "T3_instances": 5
+    },
+    "pylint": {
+      "instances": 7,
+      "train": 0,
+      "val": 0,
+      "test": 7,
+      "gold_hunks": 24,
+      "T1": 0,
+      "T2": 73,
+      "T3_hunks": 28,
+      "T3_instances": 5
+    },
+    "astropy": {
+      "instances": 9,
+      "train": 0,
+      "val": 0,
+      "test": 9,
+      "gold_hunks": 36,
+      "T1": 48,
+      "T2": 25,
+      "T3_hunks": 31,
+      "T3_instances": 6
+    },
+    "xarray": {
+      "instances": 9,
+      "train": 0,
+      "val": 0,
+      "test": 9,
+      "gold_hunks": 36,
+      "T1": 0,
+      "T2": 94,
+      "T3_hunks": 37,
+      "T3_instances": 4
+    },
+    "pytest": {
+      "instances": 11,
+      "train": 0,
+      "val": 0,
+      "test": 11,
+      "gold_hunks": 26,
+      "T1": 0,
+      "T2": 170,
+      "T3_hunks": 59,
+      "T3_instances": 11
+    },
+    "matplotlib": {
+      "instances": 17,
+      "train": 0,
+      "val": 0,
+      "test": 17,
+      "gold_hunks": 107,
+      "T1": 123,
+      "T2": 77,
+      "T3_hunks": 68,
+      "T3_instances": 12
+    },
+    "sphinx": {
+      "instances": 17,
+      "train": 0,
+      "val": 0,
+      "test": 17,
+      "gold_hunks": 40,
+      "T1": 0,
+      "T2": 259,
+      "T3_hunks": 156,
+      "T3_instances": 13
+    },
+    "scikit-learn": {
+      "instances": 25,
+      "train": 0,
+      "val": 0,
+      "test": 25,
+      "gold_hunks": 104,
+      "T1": 347,
+      "T2": 1,
+      "T3_hunks": 85,
+      "T3_instances": 18
+    },
+    "sympy": {
+      "instances": 47,
+      "train": 0,
+      "val": 0,
+      "test": 47,
+      "gold_hunks": 283,
+      "T1": 471,
+      "T2": 98,
+      "T3_hunks": 379,
+      "T3_instances": 38
+    },
+    "django": {
+      "instances": 81,
+      "train": 0,
+      "val": 0,
+      "test": 81,
+      "gold_hunks": 193,
+      "T1": 0,
+      "T2": 883,
+      "T3_hunks": 433,
+      "T3_instances": 57
+    }
+  },
+  "eval": {
+    "test_eval_instances": 165,
+    "test_t2_recall_instances": 106
+  },
+  "name": "crossllm_deepseek7b",
+  "generator_model": "deepseek-coder-7b-instruct-v1.5",
+  "independent_samples_per_instance": 32,
+  "instances": 229,
+  "eval_instances": 165,
+  "t1_recall_instances": 69,
+  "t2_recall_instances": 106,
+  "eval_hunks": {
+    "tier1": 761,
+    "tier2": 1265,
+    "tier3": 1246,
+    "mean_tier0_per_instance": 49.7,
+    "instances_without_tier0": 1
+  }
+}

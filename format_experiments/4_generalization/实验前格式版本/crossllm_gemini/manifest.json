@@ -1,0 +1,30 @@
+{
+  "name": "crossllm_gemini",
+  "version": "实验前格式版本",
+  "source_version": "采样后格式版本",
+  "rule": {
+    "retained": "one generated hunk per reference hunk (closest, same file, < 20 lines)",
+    "tier3": "at most 2 per issue, random.Random('42-<instance_id>')"
+  },
+  "sampled_version": {
+    "eval_issues": 102,
+    "t1_issues": 37,
+    "t2_issues": 68,
+    "T1": 341,
+    "T2": 690,
+    "T3": 742,
+    "retained_per_issue": 10.11,
+    "t3_per_issue": 7.27
+  },
+  "this_version": {
+    "eval_issues": 102,
+    "t1_issues": 37,
+    "t2_issues": 68,
+    "T1": 95,
+    "T2": 156,
+    "T3": 189,
+    "retained_per_issue": 2.46,
+    "t3_per_issue": 1.85
+  },
+  "function_name_rate_of_retained_git_format": 0.8889
+}

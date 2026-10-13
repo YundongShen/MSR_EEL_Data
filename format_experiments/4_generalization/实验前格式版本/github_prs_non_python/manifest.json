@@ -1,0 +1,30 @@
+{
+  "name": "github_prs_non_python",
+  "version": "实验前格式版本",
+  "source_version": "采样后格式版本",
+  "rule": {
+    "retained": "one generated hunk per reference hunk (closest, same file, < 20 lines)",
+    "tier3": "at most 2 per issue, random.Random('42-<instance_id>')"
+  },
+  "sampled_version": {
+    "eval_issues": 150,
+    "t1_issues": 54,
+    "t2_issues": 101,
+    "T1": 141,
+    "T2": 232,
+    "T3": 300,
+    "retained_per_issue": 2.49,
+    "t3_per_issue": 2.0
+  },
+  "this_version": {
+    "eval_issues": 150,
+    "t1_issues": 54,
+    "t2_issues": 101,
+    "T1": 98,
+    "T2": 150,
+    "T3": 227,
+    "retained_per_issue": 1.65,
+    "t3_per_issue": 1.51
+  },
+  "function_name_rate_of_retained_git_format": 0.8975
+}

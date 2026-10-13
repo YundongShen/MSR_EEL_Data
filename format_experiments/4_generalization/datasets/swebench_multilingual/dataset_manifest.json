@@ -1,0 +1,524 @@
+{
+  "protocol": "T1/T2 = LLM-generated hunks matched to reference-patch hunks (same file, start line within 20 lines of the gold hunk), T1 if the file is statically linked to a fail-to-pass test, else T2; T3 = LLM-generated hunks starting >= 20 lines from every gold hunk in the same file (or in another file)",
+  "generator": "gemini-2.5-flash-lite, temperature 0.7, max_tokens 4096",
+  "total": {
+    "instances": 300,
+    "train": 0,
+    "val": 0,
+    "test": 300,
+    "gold_hunks": 1280,
+    "T1": 377,
+    "T2": 1350,
+    "T3_hunks": 1544,
+    "T3_instances": 194
+  },
+  "per_repo": {
+    "json": {
+      "instances": 1,
+      "train": 0,
+      "val": 0,
+      "test": 1,
+      "gold_hunks": 2,
+      "T1": 0,
+      "T2": 11,
+      "T3_hunks": 0,
+      "T3_instances": 0
+    },
+    "rxjava": {
+      "instances": 1,
+      "train": 0,
+      "val": 0,
+      "test": 1,
+      "gold_hunks": 1,
+      "T1": 0,
+      "T2": 0,
+      "T3_hunks": 1,
+      "T3_instances": 1
+    },
+    "faker": {
+      "instances": 2,
+      "train": 0,
+      "val": 0,
+      "test": 2,
+      "gold_hunks": 2,
+      "T1": 0,
+      "T2": 6,
+      "T3_hunks": 2,
+      "T3_instances": 1
+    },
+    "fpm": {
+      "instances": 2,
+      "train": 0,
+      "val": 0,
+      "test": 2,
+      "gold_hunks": 4,
+      "T1": 0,
+      "T2": 28,
+      "T3_hunks": 0,
+      "T3_instances": 0
+    },
+    "immutable-js": {
+      "instances": 2,
+      "train": 0,
+      "val": 0,
+      "test": 2,
+      "gold_hunks": 4,
+      "T1": 0,
+      "T2": 2,
+      "T3_hunks": 22,
+      "T3_instances": 2
+    },
+    "javaparser": {
+      "instances": 2,
+      "train": 0,
+      "val": 0,
+      "test": 2,
+      "gold_hunks": 7,
+      "T1": 0,
+      "T2": 10,
+      "T3_hunks": 7,
+      "T3_instances": 1
+    },
+    "ripgrep": {
+      "instances": 2,
+      "train": 0,
+      "val": 0,
+      "test": 2,
+      "gold_hunks": 5,
+      "T1": 0,
+      "T2": 13,
+      "T3_hunks": 10,
+      "T3_instances": 2
+    },
+    "three.js": {
+      "instances": 3,
+      "train": 0,
+      "val": 0,
+      "test": 3,
+      "gold_hunks": 10,
+      "T1": 20,
+      "T2": 2,
+      "T3_hunks": 40,
+      "T3_instances": 2
+    },
+    "valkey": {
+      "instances": 4,
+      "train": 0,
+      "val": 0,
+      "test": 4,
+      "gold_hunks": 5,
+      "T1": 0,
+      "T2": 16,
+      "T3_hunks": 15,
+      "T3_instances": 1
+    },
+    "babel": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 7,
+      "T1": 0,
+      "T2": 35,
+      "T3_hunks": 35,
+      "T3_instances": 5
+    },
+    "core": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 15,
+      "T1": 0,
+      "T2": 23,
+      "T3_hunks": 20,
+      "T3_instances": 4
+    },
+    "coreutils": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 24,
+      "T1": 0,
+      "T2": 75,
+      "T3_hunks": 29,
+      "T3_instances": 3
+    },
+    "docusaurus": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 11,
+      "T1": 20,
+      "T2": 4,
+      "T3_hunks": 38,
+      "T3_instances": 4
+    },
+    "druid": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 22,
+      "T1": 0,
+      "T2": 49,
+      "T3_hunks": 29,
+      "T3_instances": 4
+    },
+    "jekyll": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 16,
+      "T1": 0,
+      "T2": 18,
+      "T3_hunks": 6,
+      "T3_instances": 3
+    },
+    "micropython": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 24,
+      "T1": 0,
+      "T2": 77,
+      "T3_hunks": 29,
+      "T3_instances": 4
+    },
+    "nushell": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 17,
+      "T1": 0,
+      "T2": 12,
+      "T3_hunks": 14,
+      "T3_instances": 5
+    },
+    "terraform": {
+      "instances": 5,
+      "train": 0,
+      "val": 0,
+      "test": 5,
+      "gold_hunks": 33,
+      "T1": 43,
+      "T2": 0,
+      "T3_hunks": 24,
+      "T3_instances": 3
+    },
+    "axios": {
+      "instances": 6,
+      "train": 0,
+      "val": 0,
+      "test": 6,
+      "gold_hunks": 25,
+      "T1": 0,
+      "T2": 72,
+      "T3_hunks": 20,
+      "T3_instances": 4
+    },
+    "axum": {
+      "instances": 7,
+      "train": 0,
+      "val": 0,
+      "test": 7,
+      "gold_hunks": 69,
+      "T1": 41,
+      "T2": 2,
+      "T3_hunks": 26,
+      "T3_instances": 6
+    },
+    "fastlane": {
+      "instances": 7,
+      "train": 0,
+      "val": 0,
+      "test": 7,
+      "gold_hunks": 8,
+      "T1": 0,
+      "T2": 26,
+      "T3_hunks": 23,
+      "T3_instances": 4
+    },
+    "hugo": {
+      "instances": 7,
+      "train": 0,
+      "val": 0,
+      "test": 7,
+      "gold_hunks": 9,
+      "T1": 39,
+      "T2": 7,
+      "T3_hunks": 9,
+      "T3_instances": 2
+    },
+    "ruff": {
+      "instances": 7,
+      "train": 0,
+      "val": 0,
+      "test": 7,
+      "gold_hunks": 15,
+      "T1": 17,
+      "T2": 15,
+      "T3_hunks": 34,
+      "T3_instances": 5
+    },
+    "bat": {
+      "instances": 8,
+      "train": 0,
+      "val": 0,
+      "test": 8,
+      "gold_hunks": 45,
+      "T1": 0,
+      "T2": 46,
+      "T3_hunks": 39,
+      "T3_instances": 7
+    },
+    "gin": {
+      "instances": 8,
+      "train": 0,
+      "val": 0,
+      "test": 8,
+      "gold_hunks": 16,
+      "T1": 68,
+      "T2": 0,
+      "T3_hunks": 86,
+      "T3_instances": 6
+    },
+    "prometheus": {
+      "instances": 8,
+      "train": 0,
+      "val": 0,
+      "test": 8,
+      "gold_hunks": 64,
+      "T1": 58,
+      "T2": 9,
+      "T3_hunks": 44,
+      "T3_instances": 7
+    },
+    "gson": {
+      "instances": 9,
+      "train": 0,
+      "val": 0,
+      "test": 9,
+      "gold_hunks": 30,
+      "T1": 0,
+      "T2": 47,
+      "T3_hunks": 37,
+      "T3_instances": 5
+    },
+    "jq": {
+      "instances": 9,
+      "train": 0,
+      "val": 0,
+      "test": 9,
+      "gold_hunks": 332,
+      "T1": 0,
+      "T2": 51,
+      "T3_hunks": 44,
+      "T3_instances": 8
+    },
+    "lucene": {
+      "instances": 9,
+      "train": 0,
+      "val": 0,
+      "test": 9,
+      "gold_hunks": 25,
+      "T1": 2,
+      "T2": 2,
+      "T3_hunks": 28,
+      "T3_instances": 3
+    },
+    "tokio": {
+      "instances": 9,
+      "train": 0,
+      "val": 0,
+      "test": 9,
+      "gold_hunks": 22,
+      "T1": 0,
+      "T2": 64,
+      "T3_hunks": 29,
+      "T3_instances": 4
+    },
+    "carbon": {
+      "instances": 10,
+      "train": 0,
+      "val": 0,
+      "test": 10,
+      "gold_hunks": 49,
+      "T1": 0,
+      "T2": 57,
+      "T3_hunks": 53,
+      "T3_instances": 7
+    },
+    "php-cs-fixer": {
+      "instances": 10,
+      "train": 0,
+      "val": 0,
+      "test": 10,
+      "gold_hunks": 34,
+      "T1": 0,
+      "T2": 44,
+      "T3_hunks": 8,
+      "T3_instances": 3
+    },
+    "phpspreadsheet": {
+      "instances": 10,
+      "train": 0,
+      "val": 0,
+      "test": 10,
+      "gold_hunks": 40,
+      "T1": 0,
+      "T2": 20,
+      "T3_hunks": 22,
+      "T3_instances": 5
+    },
+    "fmt": {
+      "instances": 11,
+      "train": 0,
+      "val": 0,
+      "test": 11,
+      "gold_hunks": 18,
+      "T1": 0,
+      "T2": 64,
+      "T3_hunks": 121,
+      "T3_instances": 9
+    },
+    "fluentd": {
+      "instances": 12,
+      "train": 0,
+      "val": 0,
+      "test": 12,
+      "gold_hunks": 22,
+      "T1": 0,
+      "T2": 61,
+      "T3_hunks": 43,
+      "T3_instances": 6
+    },
+    "redis": {
+      "instances": 12,
+      "train": 0,
+      "val": 0,
+      "test": 12,
+      "gold_hunks": 35,
+      "T1": 0,
+      "T2": 58,
+      "T3_hunks": 99,
+      "T3_instances": 9
+    },
+    "framework": {
+      "instances": 13,
+      "train": 0,
+      "val": 0,
+      "test": 13,
+      "gold_hunks": 22,
+      "T1": 0,
+      "T2": 45,
+      "T3_hunks": 36,
+      "T3_instances": 6
+    },
+    "caddy": {
+      "instances": 14,
+      "train": 0,
+      "val": 0,
+      "test": 14,
+      "gold_hunks": 35,
+      "T1": 69,
+      "T2": 32,
+      "T3_hunks": 105,
+      "T3_instances": 11
+    },
+    "rubocop": {
+      "instances": 16,
+      "train": 0,
+      "val": 0,
+      "test": 16,
+      "gold_hunks": 57,
+      "T1": 0,
+      "T2": 64,
+      "T3_hunks": 35,
+      "T3_instances": 7
+    },
+    "lombok": {
+      "instances": 17,
+      "train": 0,
+      "val": 0,
+      "test": 17,
+      "gold_hunks": 64,
+      "T1": 0,
+      "T2": 61,
+      "T3_hunks": 97,
+      "T3_instances": 13
+    },
+    "preact": {
+      "instances": 17,
+      "train": 0,
+      "val": 0,
+      "test": 17,
+      "gold_hunks": 35,
+      "T1": 0,
+      "T2": 122,
+      "T3_hunks": 185,
+      "T3_instances": 12
+    }
+  },
+  "eval": {
+    "test_eval_instances": 148,
+    "test_t2_recall_instances": 121
+  },
+  "name": "swebench_multilingual",
+  "generator_model": "gemini-2.5-flash-lite",
+  "independent_samples_per_instance": 16,
+  "instances": 300,
+  "eval_instances": 148,
+  "t1_recall_instances": 31,
+  "t2_recall_instances": 121,
+  "eval_hunks": {
+    "tier1": 229,
+    "tier2": 898,
+    "tier3": 1144,
+    "mean_tier0_per_instance": 40.1,
+    "instances_without_tier0": 2
+  },
+  "breakdown": {
+    "language:c": {
+      "instances": 41,
+      "eval_instances": 21
+    },
+    "language:cpp": {
+      "instances": 1,
+      "eval_instances": 0
+    },
+    "language:go": {
+      "instances": 40,
+      "eval_instances": 26
+    },
+    "language:java": {
+      "instances": 43,
+      "eval_instances": 20
+    },
+    "language:javascript": {
+      "instances": 27,
+      "eval_instances": 17
+    },
+    "language:php": {
+      "instances": 43,
+      "eval_instances": 16
+    },
+    "language:ruby": {
+      "instances": 44,
+      "eval_instances": 15
+    },
+    "language:rust": {
+      "instances": 43,
+      "eval_instances": 20
+    },
+    "language:typescript": {
+      "instances": 17,
+      "eval_instances": 13
+    }
+  }
+}
