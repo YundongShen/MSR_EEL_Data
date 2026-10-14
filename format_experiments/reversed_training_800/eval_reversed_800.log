@@ -1,0 +1,34 @@
+===== TRAIN 800 samples on the 8ee1c02 training split (REVERSED labels: T3 as positives, retained as hard negatives, 1cdf6f2), init m2_abl_no_test Wed Oct 14 23:12:35 CEST 2026 =====
+23:12:42 [INFO] Device: cuda
+23:12:42 [INFO] Loading dataset from /proj/test_extender/ICLR/EditBoundaryDetection/generalization_rebuild/ft_noformat/instances_all_1cdf6f2_REVERSED_oldschema.jsonl
+23:12:44 [INFO] Dataset stats: {'total_pairs': 64410, 'by_pair_type': {'req_hunk': 1257, 'orig_hunk': 2536, 'req_orig': 60617}, 'by_tier': {1: 1435, 2: 2358}, 'unique_instances': 743}
+23:12:44 [INFO] Splits — train: 52801  val: 4922
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+23:12:45 [INFO] Encoder parameters: 126,720,768
+/home/x_yushe/eel_rerun/train_old_ft.py:412: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  _c = torch.load(os.environ["FT_INIT"], map_location="cpu")
+23:12:46 [INFO] FT_INIT: weights from /proj/test_extender/ICLR/EditBoundaryDetection/old_v1/checkpoints/m2_abl_no_test/best.pt (epoch 1)
+23:12:46 [INFO] Loaded Tier-3 hard negatives: 743 instances (applied to req_hunk + orig_hunk)
+23:12:46 [INFO] === Epoch 1 / 1 ===
+23:14:29 [INFO] Epoch 1 — train_loss=11.9122  val_loss=4.6115
+23:14:30 [INFO] Saved checkpoint → /tmp/ft_17779877/epoch_001.pt  (val_loss=4.6115)
+23:14:32 [INFO] Saved checkpoint → /tmp/ft_17779877/best.pt  (val_loss=4.6115)
+23:14:32 [INFO] Training complete. Best val_loss=4.6115
+===== TRAIN done Wed Oct 14 23:14:33 CEST 2026 =====
+===== EVAL after, test set WITH function names (1cdf6f2) =====
+23:14:41 [INFO] Device: cuda
+23:14:41 [INFO] use_projection: True
+The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
+/home/x_yushe/eel_rerun/evaluate.py:69: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(ckpt_path, map_location=device)
+23:14:43 [INFO] Loaded encoder from /tmp/ft_17779877/epoch_001.pt
+23:14:43 [INFO] === Experiment 2: Retrieval ===
+23:14:43 [INFO] Test instances: 229
+23:14:43 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
+23:14:43 [INFO] Building repo-level distractor pool (test split only) …
+23:14:43 [INFO] Repo pool: 11 repos, 862 total hunks
+23:18:07 [INFO] T1-Recall(K=gold)  mean=0.7440  std=0.3412  n=43  (top-K = |T1∪T2|)
+23:18:07 [INFO] nDCG@k_gold  mean=0.7795  std=0.3245  n=82  (k = |T1∪T2| per instance)
+23:18:07 [INFO] T2-Recall(K=gold)  mean=0.7751  std=0.3263  n=47  (top-K = |T1∪T2|)
+23:18:07 [INFO] Perfect-Sep  mean=0.8049  n=82  (all T3 ranked after all gold)
+Done Wed Oct 14 23:18:08 CEST 2026
