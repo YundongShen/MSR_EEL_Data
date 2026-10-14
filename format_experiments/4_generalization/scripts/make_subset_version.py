@@ -1,17 +1,11 @@
-"""Build the "实验前格式版本" (pre-experiment formatted version): a subset of the sampled formatted
-version whose candidates per issue are close to the main test set (4.5 retained / 1.7 Tier-3 per issue).
+"""Subset rule.
 
-Rules (same for every set, nothing is regenerated):
-  retained  for each reference hunk keep ONE generated hunk: the closest retained hunk in the same file
-            (start line within 20 lines); ties -> lower sample index.  A generated hunk is used once.
-            This is the rule of the main data set (one retained hunk per reference hunk).
-  Tier-3    at most MAX_T3 per issue, drawn with random.Random(42) per issue.
-The same hunks are selected in every rendering (generated format / git format).
+  T1/T2: for each reference hunk keep one generated hunk: same file, start line < 20 lines away, the closest
+         one (ties: lower sample index, then earlier position); a generated hunk is used at most once.
+  T3:    at most 2 per issue, drawn with random.Random("42-<instance_id>").
 
-    python scripts/make_subset_version.py <set> <raw instances> [max_t3]
+    python make_subset_version.py llm_t12_hunks.jsonl tier3_hunks.jsonl raw_instances.jsonl.gz out_dir
 """
-
-from __future__ import annotations
 
 import gzip
 import json
@@ -20,13 +14,8 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "Code"))
-from data.hunk_matching import MATCH_TOLERANCE, parse_hunks  # noqa: E402
-
-SRC = ROOT / "采样后格式版本"
-DST = ROOT / "实验前格式版本"
-HEAD = re.compile(r"^@@ [^@]*@@ ?\S")
+TOLERANCE = 20
+MAX_T3 = 2
 
 
 def read(path):
@@ -37,84 +26,61 @@ def read(path):
                 yield json.loads(line)
 
 
-def select_retained(reference: list[dict], hunks: list[dict]) -> list[int]:
-    used: set[int] = set()
-    for ref in reference:
+def reference_hunks(patch):
+    """(file, start line) of every hunk of the reference patch."""
+    out, current = [], None
+    for line in patch.splitlines():
+        if line.startswith("--- "):
+            m = re.match(r"^--- (?:a/)?(.+)", line)
+            current = m.group(1).strip() if m else None
+        elif line.startswith("+++ ") and current == "/dev/null":
+            m = re.match(r"^\+\+\+ (?:b/)?(.+)", line)
+            current = m.group(1).strip() if m else current
+        elif line.startswith("@@") and current:
+            m = re.search(r"@@ -(\d+)", line)
+            out.append((current, int(m.group(1)) if m else 1))
+    return out
+
+
+def select_retained(references, hunks):
+    used = set()
+    for ref_file, ref_start in references:
         best = None
         for i, h in enumerate(hunks):
-            if i in used or h["filepath"] != ref["filepath"]:
+            if i in used or h["filepath"] != ref_file:
                 continue
-            dist = abs(int(h["old_start_line"]) - ref["old_start"])
-            if dist >= MATCH_TOLERANCE:
+            dist = abs(int(h["old_start_line"]) - ref_start)
+            if dist >= TOLERANCE:
                 continue
             key = (dist, h.get("sample", 0), i)
-            if best is None or key < best[0]:
-                best = (key, i)
+            if best is None or key < best:
+                best = key
         if best is not None:
-            used.add(best[1])
-    return sorted(used)
+            used.add(best[2])
+    return [hunks[i] for i in sorted(used)]
 
 
-def main(name: str, raw_path: str, max_t3: int = 2) -> None:
-    final = ROOT / "final" / name
-    src, dst = SRC / name, DST / name
-    dst.mkdir(parents=True, exist_ok=True)
-    patches = {r["instance_id"]: r.get("patch", "") for r in read(raw_path)}
-    t12 = {r["instance_id"]: r["llm_t12_hunks"] for r in read(final / "llm_t12_hunks.jsonl")}
-    t3 = {r["instance_id"]: r["tier3_hunks"] for r in read(final / "tier3_hunks.jsonl")}
+def select_tier3(iid, hunks):
+    if len(hunks) <= MAX_T3:
+        return hunks
+    keep = sorted(random.Random(f"42-{iid}").sample(range(len(hunks)), MAX_T3))
+    return [hunks[i] for i in keep]
 
-    keep12 = {iid: select_retained(parse_hunks(patches.get(iid, "") or ""), hunks) for iid, hunks in t12.items()}
-    keep3 = {}
-    for iid, hunks in t3.items():
-        idx = list(range(len(hunks)))
-        keep3[iid] = sorted(random.Random(f"42-{iid}").sample(idx, max_t3)) if len(idx) > max_t3 else idx
 
-    # generated-format hunk files (schema of build_dataset.py)
-    with open(dst / "llm_t12_hunks.jsonl", "w") as fh:
-        for iid, hunks in t12.items():
-            if keep12[iid]:
-                fh.write(json.dumps({"instance_id": iid, "llm_t12_hunks": [hunks[i] for i in keep12[iid]]}, ensure_ascii=False) + "\n")
-    with open(dst / "tier3_hunks.jsonl", "w") as fh:
-        for iid, hunks in t3.items():
-            fh.write(json.dumps({"instance_id": iid, "tier3_hunks": [hunks[i] for i in keep3[iid]]}, ensure_ascii=False) + "\n")
-
-    # the two renderings in the old instance schema (gold_hunks field), same selection
-    named = total = 0
-    for fname in ("instances_asgen.jsonl", "instances_asgold.jsonl"):
-        with open(dst / fname, "w") as fh:
-            for rec in read(src / fname):
-                idx = keep12.get(rec["instance_id"], [])
-                assert not idx or max(idx) < len(rec["gold_hunks"]), rec["instance_id"]
-                rec["gold_hunks"] = [{**rec["gold_hunks"][i], "hunk_id": k} for k, i in enumerate(idx)]
-                if fname == "instances_asgold.jsonl":
-                    total += len(idx)
-                    named += sum(bool(HEAD.match(h["hunk_diff"])) for h in rec["gold_hunks"])
-                fh.write(json.dumps(rec) + "\n")
-    for fname in ("tier3_gen.jsonl", "tier3_asgold.jsonl"):
-        with open(dst / fname, "w") as fh:
-            for rec in read(src / fname):
-                idx = keep3[rec["instance_id"]]
-                fh.write(json.dumps({"instance_id": rec["instance_id"], "tier3_hunks": [rec["tier3_hunks"][i] for i in idx]}) + "\n")
-
-    def stats(sel12, sel3):
-        ev = [i for i in t12 if sel12(i) and i in t3 and sel3(i)]
-        tiers = [h["tier_label"] for i in ev for h in sel12(i)]
-        return {"eval_issues": len(ev), "t1_issues": sum(any(h["tier_label"] == 1 for h in sel12(i)) for i in ev),
-                "t2_issues": sum(any(h["tier_label"] == 2 for h in sel12(i)) for i in ev),
-                "T1": tiers.count(1), "T2": tiers.count(2), "T3": sum(len(sel3(i)) for i in ev),
-                "retained_per_issue": round(len(tiers) / max(1, len(ev)), 2),
-                "t3_per_issue": round(sum(len(sel3(i)) for i in ev) / max(1, len(ev)), 2)}
-
-    before = stats(lambda i: t12[i], lambda i: t3[i])
-    after = stats(lambda i: [t12[i][k] for k in keep12[i]], lambda i: [t3[i][k] for k in keep3[i]])
-    manifest = {"name": name, "version": "实验前格式版本", "source_version": "采样后格式版本",
-                "rule": {"retained": "one generated hunk per reference hunk (closest, same file, < 20 lines)",
-                         "tier3": f"at most {max_t3} per issue, random.Random('42-<instance_id>')"},
-                "sampled_version": before, "this_version": after,
-                "function_name_rate_of_retained_git_format": round(named / max(1, total), 4)}
-    json.dump(manifest, open(dst / "manifest.json", "w"), ensure_ascii=False, indent=2)
-    print(json.dumps(manifest, ensure_ascii=False))
+def main(t12_path, t3_path, raw_path, out_dir):
+    patches = {r["instance_id"]: r.get("patch") or "" for r in read(raw_path)}
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    with open(out / "llm_t12_hunks.jsonl", "w") as fh:
+        for r in read(t12_path):
+            kept = select_retained(reference_hunks(patches.get(r["instance_id"], "")), r["llm_t12_hunks"])
+            if kept:
+                fh.write(json.dumps({"instance_id": r["instance_id"], "llm_t12_hunks": kept}, ensure_ascii=False) + "\n")
+    with open(out / "tier3_hunks.jsonl", "w") as fh:
+        for r in read(t3_path):
+            kept = select_tier3(r["instance_id"], r["tier3_hunks"])
+            fh.write(json.dumps({"instance_id": r["instance_id"], "tier3_hunks": kept}, ensure_ascii=False) + "\n")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], int(sys.argv[3]) if len(sys.argv) > 3 else 2)
+    main(*sys.argv[1:5])
