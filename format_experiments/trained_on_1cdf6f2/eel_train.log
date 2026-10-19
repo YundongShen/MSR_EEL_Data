@@ -1,4 +1,4 @@
-===== TRAIN M2 on 1cdf6f2 Thu Oct 15 21:55:27 CEST 2026 =====
+===== TRAIN M2 =====
 21:55:42 [INFO] Device: cuda
 21:55:42 [INFO] Loading dataset from /proj/test_extender/ICLR/EditBoundaryDetection/generalization_rebuild/ft_noformat/instances_all_1cdf6f2_oldschema.jsonl
 21:55:45 [INFO] Dataset stats: {'total_pairs': 250734, 'by_pair_type': {'req_hunk': 9223, 'orig_hunk': 15815, 'req_orig': 218166, 'req_test': 7530}, 'by_tier': {1: 9257, 2: 15781}, 'unique_instances': 2291}
@@ -488,7 +488,7 @@ The new embeddings will be initialized from a multivariate normal distribution t
 07:17:35 [INFO] step=23450  loss=0.1715  τ=0.062  lr=1.59e-05  [req_orig=0.065  req_test=0.106  req_hunk=0.000  orig_hunk=0.000]
 epoch 3 saved, stopping training Fri Oct 16 07:18:40 CEST 2026
 best.pt: epoch 1 val_loss 4.6404
-===== RESUME M2 (1cdf6f2) from epoch 3 Fri Oct 16 20:10:23 CEST 2026 =====
+===== RESUME M2 =====
 20:10:33 [INFO] Device: cuda
 20:10:33 [INFO] Loading dataset from /proj/test_extender/ICLR/EditBoundaryDetection/generalization_rebuild/ft_noformat/instances_all_1cdf6f2_oldschema.jsonl
 20:10:36 [INFO] Dataset stats: {'total_pairs': 250734, 'by_pair_type': {'req_hunk': 9223, 'orig_hunk': 15815, 'req_orig': 218166, 'req_test': 7530}, 'by_tier': {1: 9257, 2: 15781}, 'unique_instances': 2291}
@@ -1615,3 +1615,4 @@ The new embeddings will be initialized from a multivariate normal distribution t
 17:58:54 [INFO] Saved checkpoint → /tmp/m2new10_17807634/ckpt/epoch_010.pt  (val_loss=4.8012)
 17:58:54 [INFO] Training complete. Best val_loss=4.6404
 best.pt: epoch 1 val_loss 4.6404
+best.pt: epoch 7 train_loss 0.3027
