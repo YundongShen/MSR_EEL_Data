@@ -1,5 +1,5 @@
 NVIDIA A100-SXM4-80GB, 81920 MiB
-===== TRAIN leave-sympy-out Tue Oct 13 16:36:38 CEST 2026 =====
+===== leave-sympy-out =====
 16:37:01 [INFO] Device: cuda
 16:37:01 [INFO] Loading dataset from /proj/test_extender/ICLR/EditBoundaryDetection/generalization_rebuild/lso/instances_non_sympy_v1.jsonl
 16:37:03 [INFO] Dataset stats: {'total_pairs': 188162, 'by_pair_type': {'req_hunk': 7331, 'orig_hunk': 12480, 'req_orig': 161470, 'req_test': 6881}, 'by_tier': {1: 5118, 2: 14693}, 'unique_instances': 1906}
@@ -330,10 +330,8 @@ The new embeddings will be initialized from a multivariate normal distribution t
 22:45:30 [INFO] === Epoch 3 / 10 ===
 22:46:07 [INFO] step=15650  loss=0.6568  τ=0.064  lr=1.81e-05  [req_test=0.402  req_orig=0.250  req_hunk=0.004  orig_hunk=0.002]
 22:47:17 [INFO] step=15700  loss=0.6244  τ=0.064  lr=1.81e-05  [orig_hunk=0.040  req_orig=0.013  req_hunk=0.281  req_test=0.290]
-epoch 2 saved, stopping training Tue Oct 13 22:47:49 CEST 2026
-best.pt: epoch 2 val_loss 4.7005
 NVIDIA A100-SXM4-80GB, 81920 MiB
-===== RESUME leave-sympy-out from epoch 2 (best val_loss so far 4.7004810569171385) Wed Oct 21 18:33:12 CEST 2026 =====
+===== leave-sympy-out =====
 18:33:25 [INFO] Device: cuda
 18:33:25 [INFO] Loading dataset from /proj/test_extender/ICLR/EditBoundaryDetection/generalization_rebuild/lso/instances_non_sympy_v1.jsonl
 18:33:27 [INFO] Dataset stats: {'total_pairs': 188162, 'by_pair_type': {'req_hunk': 7331, 'orig_hunk': 12480, 'req_orig': 161470, 'req_test': 6881}, 'by_tier': {1: 5118, 2: 14693}, 'unique_instances': 1906}
