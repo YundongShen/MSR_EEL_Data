@@ -1619,13 +1619,3 @@ The new embeddings will be initialized from a multivariate normal distribution t
 19:04:38 [INFO] Saved checkpoint → /tmp/lso10_17887903/ckpt/epoch_010.pt  (val_loss=4.7748)
 19:04:38 [INFO] Training complete. Best val_loss=4.7005
 best.pt: epoch 2 val_loss 4.7005
-===== EVAL best.pt on the sympy issues (1cdf6f2) =====
-19:09:39 [INFO] Device: cuda
-19:09:39 [INFO] use_projection: True
-The new embeddings will be initialized from a multivariate normal distribution that has old embeddings' mean and covariance. As described in this article: https://nlp.stanford.edu/~johnhew/vocab-expansion.html. To disable this, use `mean_resizing=False`
-19:09:45 [INFO] Loaded encoder from /tmp/lso10_17887903/ckpt/best.pt
-19:09:45 [INFO] === Experiment 2: Retrieval ===
-19:09:45 [INFO] Test instances: 385
-19:09:45 [INFO] Tier-3 lookup: 743 instances with scope-creep hunks
-19:09:45 [INFO] Building repo-level distractor pool (test split only) …
-19:09:45 [INFO] Repo pool: 1 repos, 1892 total hunks
