@@ -1616,4 +1616,5 @@ The new embeddings will be initialized from a multivariate normal distribution t
 19:04:36 [INFO] Epoch 10 — train_loss=0.4213  val_loss=4.7748
 19:04:38 [INFO] Saved checkpoint → /tmp/lso10_17887903/ckpt/epoch_010.pt  (val_loss=4.7748)
 19:04:38 [INFO] Training complete. Best val_loss=4.7005
-best.pt: epoch 2 val_loss 4.7005
+Lowest val_loss: epoch 2 val_loss 4.7005
+Lowest train_loss: epoch 4 train_loss 0.3755
